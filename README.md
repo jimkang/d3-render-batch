@@ -16,9 +16,10 @@ Usage
       // TODO: opts
     });
 
-    renderBatch(
-      'rect',
-      [
+    renderBatch({
+      root: d3.select('body'),
+      tag: 'rect',
+      batch: [
         {
           id: 'pipe-body',
           attr: {
@@ -28,7 +29,9 @@ Usage
             height: 80,
             fill: 'hsla(0, 0%, 0%, 0.5)'
           },
-          class: 'pipe'
+          class: {
+            pipe: true
+          }
         },
         {
           id: 'pipe-cap-A',
@@ -39,7 +42,9 @@ Usage
             height: 100,
             fill: 'hsla(0, 0%, 0%, 0.5)'
           },
-          class: 'pipe'
+          class: {
+            pipe: true
+          }
         },
         {
           id: 'pipe-cap-B',
@@ -50,17 +55,19 @@ Usage
             height: 100,
             fill: 'hsla(0, 0%, 0%, 0.5)'
           },
-          class: 'pipe'
+          class: {
+            pipe: true
+          }
         }
       ]
-    );
+    });
 
 `renderBatch` will then do a data join with the given array of specs, using a key function that uses the `id` property to match datum and enter/update/exit (create new DOM elements representing new array element, update all of the attributes and class, and remove DOM elements not represented in the array).
 
 Tests
 -----
 
-Run tests with `make test`.
+Instal browserify globally. Run tests with `make test`.
 
 License
 -------

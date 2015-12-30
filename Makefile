@@ -1,5 +1,7 @@
 test: test-chrome test-firefox
 
+test-big: test-big-chrome test-big-firefox
+
 BROWSERIFYCMD = browserify -d
 
 SMOKECHROME = node_modules/.bin/tap-closer | \
@@ -11,11 +13,17 @@ SMOKEFIREFOX = node_modules/.bin/tap-closer | \
 test-chrome:
 	$(BROWSERIFYCMD) tests/basictests.js | $(SMOKECHROME)
 
-test-chrome-leave-up:
-	$(BROWSERIFYCMD) tests/basictests.js | node_modules/.bin/smokestack -b chrome
-
 test-firefox:
 	$(BROWSERIFYCMD) tests/basictests.js | $(SMOKEFIREFOX)
+
+test-big-chrome:
+	$(BROWSERIFYCMD) tests/bigtests.js | $(SMOKECHROME)
+
+test-big-chrome-no-close:
+	browserify -d tests/bigtests.js | node_modules/.bin/smokestack -b chrome
+
+test-big-firefox:
+	$(BROWSERIFYCMD) tests/bigtests.js | $(SMOKEFIREFOX)
 
 pushall:
 	git push origin master && npm publish

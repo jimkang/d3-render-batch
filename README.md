@@ -67,7 +67,7 @@ Usage
 Tests
 -----
 
-Instal browserify globally. Run tests with `make test`.
+Instal browserify globally. Run tests with `make test`. Run large tests with `make test-big`.
 
 License
 -------

@@ -1,5 +1,8 @@
 var d3Selection = require('d3-selection');
+require('d3-selection-multi'); // This is a plugin.
 var accessor = require('accessor');
+
+var keyFn = accessor();
 
 function RenderBatch(createOpts) {
   var d3;
@@ -11,7 +14,11 @@ function RenderBatch(createOpts) {
     d3 = d3Selection;
   }
 
-  var keyFn = accessor();
+  function setAttr(d) {
+    d3.select(this)
+      .attrs(d.attr)
+      .attr('id', d.id);
+  }
 
   function renderBatch(opts) {
     var root;
@@ -27,10 +34,10 @@ function RenderBatch(createOpts) {
     if (root instanceof HTMLElement) {
       root = d3.select(root);
     }
-    debugger;
 
     var update = root.selectAll(tag).data(batch, keyFn);
     update.enter().append(tag);
+    update.each(setAttr);
   }
 
   return renderBatch;

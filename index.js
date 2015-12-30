@@ -1,6 +1,7 @@
 var d3Selection = require('d3-selection');
 require('d3-selection-multi'); // This is a plugin.
 var accessor = require('accessor');
+var multiClass = require('./multiclass');
 
 var keyFn = accessor();
 
@@ -14,10 +15,13 @@ function RenderBatch(createOpts) {
     d3 = d3Selection;
   }
 
-  function setAttr(d) {
-    d3.select(this)
+  function setProps(d) {
+    var sel = d3.select(this);
+    sel
       .attrs(d.attr)
       .attr('id', d.id);
+
+    multiClass(sel, d.class);
   }
 
   function renderBatch(opts) {
@@ -37,7 +41,7 @@ function RenderBatch(createOpts) {
 
     var update = root.selectAll(tag).data(batch, keyFn);
     update.enter().append(tag);
-    update.each(setAttr);
+    update.each(setProps);
   }
 
   return renderBatch;

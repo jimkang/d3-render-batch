@@ -41,6 +41,7 @@ function RenderBatch(createOpts) {
 
     var update = root.selectAll(tag).data(batch, keyFn);
     update.enter().append(tag);
+    update.exit().remove();
     update.each(setProps);
   }
 

@@ -82,5 +82,17 @@ test('Basic test', function basicTest(t) {
     }
   }
 
+  renderBatch({
+    root: svg,
+    tag: 'rect',
+    batch: testBatch.slice(1)
+  });
+
+  t.equal(
+    d3.selectAll('rect').size(), 2, 'Element is removed.'
+  );
+
+  testBatch.slice(1).forEach(checkProperties);
+
   t.end();
 });

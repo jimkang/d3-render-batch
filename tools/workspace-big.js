@@ -2,6 +2,21 @@ var RenderBatch = require('../index');
 var d3 = require('d3-selection');
 var probable = require('probable');
 var idmaker = require('idmaker');
+var fps = require('fps');
+
+var ticker = fps({
+  every: 50
+});
+
+ticker.on('data', reportFramerate);
+
+var displayBox = d3.select('body').append('div');
+displayBox.append('span').text('FPS:');
+fpsDisplay = displayBox.append('span').attr('id', 'frame-rate-display');
+
+function reportFramerate(framerate) {
+  fpsDisplay.text(framerate);
+};
 
 var renderBatch = RenderBatch();
 
@@ -60,6 +75,8 @@ function renderNewTestBatch() {
     tag: 'rect',
     batch: testBatchRect
   });
+
+  ticker.tick();
 }
 
 setInterval(renderNewTestBatch, 1000 / 60);

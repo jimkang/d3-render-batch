@@ -4,6 +4,8 @@ var accessor = require('accessor');
 var multiClass = require('./multiclass');
 
 var keyFn = accessor();
+var attrsFn = accessor('attr');
+var classFn = accessor('class');
 
 function RenderBatch(createOpts) {
   var d3;
@@ -15,13 +17,8 @@ function RenderBatch(createOpts) {
     d3 = d3Selection;
   }
 
-  function setProps(d) {
-    var sel = d3.select(this);
-    sel
-      .attrs(d.attr)
-      .attr('id', d.id);
-
-    multiClass(sel, d.class);
+  function setClasses(d) {
+    multiClass(d3.select(this), d.class);
   }
 
   function renderBatch(opts) {
@@ -40,9 +37,10 @@ function RenderBatch(createOpts) {
     }
 
     var update = root.selectAll(tag).data(batch, keyFn);
-    update.enter().append(tag);
+    update.enter().append(tag).attr('id', keyFn);
     update.exit().remove();
-    update.each(setProps);
+    update.attrs(attrsFn);
+    update.each(setClasses);
   }
 
   return renderBatch;

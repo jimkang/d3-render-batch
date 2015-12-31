@@ -46,8 +46,7 @@ for (var i = 0; i < batchSize; ++i) {
 var svg = d3.select('body').append('svg')
   .attr('width', '100%').attr('height', '768px');;
 
-function renderNewTestBatch() {
-  // TODO: hrtime measurement.
+function renderNewRectBatch() {
   var testBatchRect = [];
 
   for (var i = 0; i < batchSize - probable.roll(~~(batchSize * 0.8)); ++i) {
@@ -75,8 +74,42 @@ function renderNewTestBatch() {
     tag: 'rect',
     batch: testBatchRect
   });
+}
+
+function renderNewCircleBatch() {
+  var testBatchRect = [];
+
+  for (var i = 0; i < batchSize - probable.roll(~~(batchSize * 0.8)); ++i) {
+    var spec = {
+      id: ids[i],
+      attr: {
+        cx: probable.roll(1000),
+        cy: probable.roll(1000),
+        r: probable.roll(500),
+        fill: 'hsla(' +
+          probable.roll(360) + ', ' +
+          probable.roll(100) + '%, ' +
+          probable.roll(100) + '%, ' +
+          probable.roll(100)/100 + ')'
+      },
+      class: classSpecs[i]
+    };
+
+    testBatchRect.push(spec);
+  }
+
+  renderBatch({
+    root: svg,
+    tag: 'circle',
+    batch: testBatchRect
+  });
+}
+
+function renderNewTestBatches() {
+  renderNewRectBatch();
+  renderNewCircleBatch();
 
   ticker.tick();
 }
 
-setInterval(renderNewTestBatch, 1000 / 60);
+setInterval(renderNewTestBatches, 1000 / 60);

@@ -1,6 +1,6 @@
 {
   "name": "d3-render-batch",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An abstraction for d3-selection that renders (enter, update, exit) an array of specs for DOM elements that all share the same kind of HTML or SVG tag.",
   "main": "index.js",
   "scripts": {

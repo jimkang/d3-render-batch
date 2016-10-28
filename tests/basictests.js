@@ -78,7 +78,7 @@ test('Basic test', function basicTest(t) {
     }
 
     for (var classKey in spec.class) {
-      t.ok(el.class(classKey), 'Class ' + classKey + ' is set.');
+      t.ok(el.classed(classKey), 'Class ' + classKey + ' is set.');
     }
   }
 

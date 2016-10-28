@@ -26,8 +26,8 @@
   },
   "dependencies": {
     "accessor": "^1.0.1",
-    "d3-selection": "^0.4.12",
-    "d3-selection-multi": "^0.2.8",
+    "d3-selection": "^1.0.2",
+    "d3-selection-multi": "^1.0.0",
     "fps": "0.0.3"
   }
 }

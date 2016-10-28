@@ -1,6 +1,6 @@
 function multiClass(sel, classMap) {
   for (var classKey in classMap) {
-    sel.class(classKey, classMap[classKey]);
+    sel.classed(classKey, classMap[classKey]);
   }
 }
 

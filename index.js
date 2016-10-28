@@ -36,9 +36,9 @@ function RenderBatch(createOpts) {
       root = d3.select(root);
     }
 
-    var update = root.selectAll(tag).data(batch, keyFn);
-    update.enter().append(tag).attr('id', keyFn);
-    update.exit().remove();
+    var all = root.selectAll(tag).data(batch, keyFn);
+    all.exit().remove();
+    var update = all.enter().append(tag).attr('id', keyFn).merge(all);
     update.attrs(attrsFn);
     update.each(setClasses);
   }
